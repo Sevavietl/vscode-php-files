@@ -1,0 +1,109 @@
+{
+    "name": "php-files",
+    "displayName": "php-files",
+    "description": "IDE-like PHP files creation.",
+    "version": "0.0.1",
+    "publisher": "sevavietl",
+    "engines": {
+        "vscode": "^1.18.0"
+    },
+    "license": "MIT",
+    "keywords": [
+        "php",
+        "ide",
+        "files"
+    ],
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.newPHPClass",
+        "onCommand:extension.newPHPInterface",
+        "onCommand:extension.newPHPTrait"
+    ],
+    "main": "./out/extension",
+    "contributes": {
+        "configuration": {
+            "type": "object",
+            "title": "PHP Files configuration",
+            "properties": {
+                "php-files.templates.PHPClass": {
+                    "type": "array",
+                    "default": [
+                        "<?php",
+                        "",
+                        "class PHPClass",
+                        "{",
+                        "}"
+                    ],
+                    "description": "Template for PHP Class"
+                },
+                "php-files.templates.PHPInterface": {
+                    "type": "array",
+                    "default": [
+                        "<?php",
+                        "",
+                        "interface PHPInterface",
+                        "{",
+                        "}"
+                    ],
+                    "description": "Template for PHP Interface"
+                },
+                "php-files.templates.PHPTrait": {
+                    "type": "array",
+                    "default": [
+                        "<?php",
+                        "",
+                        "trait PHPTrait",
+                        "{",
+                        "}"
+                    ],
+                    "description": "Template for PHP Trait"
+                }
+            }
+        },
+        "commands": [
+            {
+                "command": "extension.newPHPClass",
+                "title": "New PHP Class"
+            },
+            {
+                "command": "extension.newPHPInterface",
+                "title": "New PHP Interface"
+            },
+            {
+                "command": "extension.newPHPTrait",
+                "title": "New PHP Trait"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "extension.newPHPClass",
+                    "when": "explorerResourceIsFolder"
+                },
+                {
+                    "command": "extension.newPHPInterface",
+                    "when": "explorerResourceIsFolder"
+                },
+                {
+                    "command": "extension.newPHPTrait",
+                    "when": "explorerResourceIsFolder"
+                }
+            ]
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "npm run compile && node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^2.6.1",
+        "vscode": "^1.1.6",
+        "@types/node": "^7.0.43",
+        "@types/mocha": "^2.2.42"
+    }
+}
