@@ -39,7 +39,15 @@ export function getImplements() {
     }); 
 }
 
-export function getBaseName(name) {
+export function isFullyQualifiedName(name) {
+    return name.indexOf('\\') !== -1;
+}
+
+export function getNamespace(name) {
+    return name.split('\\').slice(0, -1).join('\\');
+}
+
+export function getBasename(name) {
     return name.split('\\').pop();
 }
 

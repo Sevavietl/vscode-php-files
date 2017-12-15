@@ -22,6 +22,5 @@ In order to allow multiline templates in JSON each template is an array.
 
 ## TODO
 
-- Allow fully qualified names (sets the namespace of file).
 - Allow using of commands from the command palette.
 - Implement tests.

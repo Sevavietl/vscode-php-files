@@ -2,17 +2,30 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as writer from 'php-writer';
 
+import './writerExtension';
+
 import TemplatesRepository from '../templatesRepository';
 
-import { getPath, getFullyQualifiedName, getExtends, getImplements, getBaseName, notValidPath } from './helpers';
+import { 
+    getPath,
+    getFullyQualifiedName,
+    getExtends,
+    getImplements,
+    getNamespace,
+    getBasename,
+    notValidPath 
+} from './helpers';
+
+import PhpClass from '../entities/phpClass';
 
 export function run(templatesRepository: TemplatesRepository, args: any) {
     const template = templatesRepository.findByName('PHPClass');
-    const phpClass = new writer(template);
+    const phpClass = new PhpClass(new writer(template), 'PHPClass');
     
     getPath(args && args.fsPath).then(targetFolder => {
         getFullyQualifiedName().then(name => {
-            const filePath = targetFolder + '/' + getBaseName(name) + '.php';
+            const basename = getBasename(name);
+            const filePath = targetFolder + '/' + basename + '.php';
 
             if (notValidPath(filePath)) {
                 return;
@@ -21,13 +34,10 @@ export function run(templatesRepository: TemplatesRepository, args: any) {
             getExtends().then(parent => {
                 getImplements().then(interfaces => {
                     phpClass
-                        .findClass('PHPClass')
                         .setName(name)
                         .setExtends(parent)
-                        .setImplements(interfaces);
-                    
-                    
-                    fs.writeFileSync(filePath, phpClass);
+                        .setImplements(interfaces)
+                        .save(filePath);
                 });
             });
         });

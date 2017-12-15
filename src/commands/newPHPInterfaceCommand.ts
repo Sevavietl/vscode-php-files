@@ -4,15 +4,23 @@ import * as writer from 'php-writer';
 
 import TemplatesRepository from '../templatesRepository';
 
-import { getPath, getFullyQualifiedName, getExtends, getBaseName, notValidPath } from './helpers';
+import {
+    getPath,
+    getFullyQualifiedName,
+    getExtends,
+    getBasename,
+    notValidPath
+} from './helpers';
+
+import PhpInterface from '../entities/phpInterface';
 
 export function run(templatesRepository: TemplatesRepository, args: any) {
     const template = templatesRepository.findByName('PHPInterface');
-    const phpInterface = new writer(template);
+    const phpInterface = new PhpInterface(new writer(template), 'PHPInterface');
 
     getPath(args && args.fsPath).then(targetFolder => {
         getFullyQualifiedName().then(name => {
-            const filePath = targetFolder + '/' + getBaseName(name) + '.php';
+            const filePath = targetFolder + '/' + getBasename(name) + '.php';
             
             if (notValidPath(filePath)) {
                 return;
@@ -20,11 +28,9 @@ export function run(templatesRepository: TemplatesRepository, args: any) {
             
             getExtends().then(interfaces => {
                 phpInterface
-                    .findInterface('PHPInterface')
                     .setName(name)
-                    .setExtends(interfaces);
-                
-                fs.writeFileSync(filePath, phpInterface);
+                    .setExtends(interfaces)
+                    .save(filePath);
             });
         });
     });

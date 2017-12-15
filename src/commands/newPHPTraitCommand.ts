@@ -4,25 +4,25 @@ import * as writer from 'php-writer';
 
 import TemplatesRepository from '../templatesRepository';
 
-import { getPath, getFullyQualifiedName, getBaseName, notValidPath } from './helpers';
+import { getPath, getFullyQualifiedName, getBasename, notValidPath } from './helpers';
+
+import PhpTrait from '../entities/phpTrait';
 
 export function run(templatesRepository: TemplatesRepository, args: any) {
     const template = templatesRepository.findByName('PHPTrait');
-    const phpTrait = new writer(template);
+    const phpTrait = new PhpTrait(new writer(template), 'PHPTrait');
 
     getPath(args && args.fsPath).then(targetFolder => {
         getFullyQualifiedName().then(name => {
-            const filePath = targetFolder + '/' + getBaseName(name) + '.php';
+            const filePath = targetFolder + '/' + getBasename(name) + '.php';
             
             if (notValidPath(filePath)) {
                 return;
             }
 
             phpTrait
-                .findTrait('PHPTrait')
                 .setName(name)
-            
-            fs.writeFileSync(filePath, phpTrait);
+                .save(filePath);
         });
     });
 }
