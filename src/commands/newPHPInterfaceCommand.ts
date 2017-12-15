@@ -16,7 +16,7 @@ import PhpInterface from '../entities/phpInterface';
 
 export function run(templatesRepository: TemplatesRepository, args: any) {
     const template = templatesRepository.findByName('PHPInterface');
-    const phpInterface = new PhpInterface(new writer(template), 'PHPInterface');
+    const phpInterface = new PhpInterface(new writer(template));
 
     getPath(args && args.fsPath).then(targetFolder => {
         getFullyQualifiedName().then(name => {

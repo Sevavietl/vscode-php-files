@@ -9,7 +9,7 @@ export default abstract class Entity {
         name = new FullyQualifiedName(name);
 
         if (name.hasNamespace()) {
-            this.file.setNamespace(name.namespace);
+            this.file.addNamespace(name.namespace);
         }
 
         this.subject.setName(name.basename);
@@ -21,5 +21,9 @@ export default abstract class Entity {
         fs.writeFileSync(path, this.file);
         
         return this;
+    }
+
+    protected setUsegroup(name) {
+        (this.file.findNamespace() || this.file).addUsegroup(name);
     }
 }

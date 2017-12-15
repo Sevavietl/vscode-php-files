@@ -10,7 +10,7 @@ import PhpTrait from '../entities/phpTrait';
 
 export function run(templatesRepository: TemplatesRepository, args: any) {
     const template = templatesRepository.findByName('PHPTrait');
-    const phpTrait = new PhpTrait(new writer(template), 'PHPTrait');
+    const phpTrait = new PhpTrait(new writer(template));
 
     getPath(args && args.fsPath).then(targetFolder => {
         getFullyQualifiedName().then(name => {

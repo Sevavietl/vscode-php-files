@@ -2,7 +2,7 @@
   "name": "php-files",
   "displayName": "PHP Files",
   "description": "IDE-like PHP files creation.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "sevavietl",
   "engines": {
     "vscode": "^1.18.0"
@@ -112,6 +112,6 @@
     "@types/mocha": "^2.2.42"
   },
   "dependencies": {
-    "php-writer": "^2.0.0"
+    "php-writer": "git+https://github.com/Sevavietl/php-writer.git"
   }
 }

@@ -1,11 +1,11 @@
 import Entity from './entity';
 import FullyQualifiedName from './fullyQualifiedName';
 
-export default class PhpClass extends Entity {
-    constructor(file, name: String) {
+export default class PhpInterface extends Entity {
+    constructor(file) {
         super();
         this.file = file;
-        this.subject = file.findInterface('PHPInterface');
+        this.subject = file.findInterface();
     }
 
     public setExtends(names) {
@@ -13,7 +13,7 @@ export default class PhpClass extends Entity {
             const _interface = new FullyQualifiedName(name);
 
             if (_interface.hasNamespace()) {
-                this.file.addUsergroup(name);
+                this.setUsegroup(name);                
             }
 
             carry.push(_interface.basename);

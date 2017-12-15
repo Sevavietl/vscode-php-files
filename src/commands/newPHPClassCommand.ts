@@ -2,8 +2,6 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as writer from 'php-writer';
 
-import './writerExtension';
-
 import TemplatesRepository from '../templatesRepository';
 
 import { 
@@ -20,7 +18,7 @@ import PhpClass from '../entities/phpClass';
 
 export function run(templatesRepository: TemplatesRepository, args: any) {
     const template = templatesRepository.findByName('PHPClass');
-    const phpClass = new PhpClass(new writer(template), 'PHPClass');
+    const phpClass = new PhpClass(new writer(template));
     
     getPath(args && args.fsPath).then(targetFolder => {
         getFullyQualifiedName().then(name => {
