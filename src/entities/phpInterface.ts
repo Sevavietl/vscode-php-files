@@ -13,9 +13,9 @@ export default class PhpInterface extends Entity {
             this.processName(name, name => carry.push(name));
 
             return carry;
-        }, [])
+        }, []);
 
-        this.subject.setExtends(extendsNames);
+        this.subject.setExtends(extendsNames.join(','));
 
         return this;
     }
