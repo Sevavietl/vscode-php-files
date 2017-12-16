@@ -2,7 +2,7 @@
   "name": "php-files",
   "displayName": "PHP Files",
   "description": "IDE-like PHP files creation.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publisher": "sevavietl",
   "engines": {
     "vscode": "^1.18.0"
@@ -106,12 +106,14 @@
     "test": "npm run compile && node ./node_modules/vscode/bin/test"
   },
   "devDependencies": {
-    "typescript": "^2.6.1",
-    "vscode": "^1.1.6",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^7.0.43",
-    "@types/mocha": "^2.2.42"
+    "ts-mockito": "^2.2.7",
+    "typescript": "^2.6.1",
+    "vscode": "^1.1.6"
   },
   "dependencies": {
+    "fs-extra": "^5.0.0",
     "php-writer": "git+https://github.com/Sevavietl/php-writer.git"
   }
 }

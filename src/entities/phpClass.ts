@@ -1,5 +1,5 @@
 import Entity from './entity';
-import FullyQualifiedName from './fullyQualifiedName';
+import PhpName from './phpName';
 
 export default class PhpClass extends Entity {
     constructor(file) {
@@ -9,31 +9,19 @@ export default class PhpClass extends Entity {
     }
 
     public setExtends(name) {
-        const parent = new FullyQualifiedName(name);
-
-        if (parent.hasNamespace()) {
-            this.setUsegroup(name);
-        }
-
-        this.subject.setExtends(parent.basename);
-
+        this.processName(name, name => this.subject.setExtends(name));
+        
         return this;
     }
 
     public setImplements(names) {
-        const interfaces = names.split(',').map(name => name.trim()).reduce((carry, name) => {
-            const _interface = new FullyQualifiedName(name);
-
-            if (_interface.hasNamespace()) {
-                this.setUsegroup(name);               
-            }
-
-            carry.push(_interface.basename);
+        const implementsNames = names.split(',').map(name => name.trim()).reduce((carry, name) => {
+            this.processName(name, name => carry.push(name));
 
             return carry;
         }, [])
 
-        this.subject.setImplements(interfaces);
+        this.subject.setImplements(implementsNames);
 
         return this;
     }

@@ -1,5 +1,5 @@
 import Entity from './entity';
-import FullyQualifiedName from './fullyQualifiedName';
+import PhpName from './phpName';
 
 export default class PhpInterface extends Entity {
     constructor(file) {
@@ -9,19 +9,13 @@ export default class PhpInterface extends Entity {
     }
 
     public setExtends(names) {
-        const interfaces = names.split(',').map(name => name.trim()).reduce((carry, name) => {
-            const _interface = new FullyQualifiedName(name);
-
-            if (_interface.hasNamespace()) {
-                this.setUsegroup(name);                
-            }
-
-            carry.push(_interface.basename);
+        const extendsNames = names.split(',').map(name => name.trim()).reduce((carry, name) => {
+            this.processName(name, name => carry.push(name));
 
             return carry;
         }, [])
 
-        this.subject.setExtends(interfaces.join(','));
+        this.subject.setExtends(extendsNames);
 
         return this;
     }
