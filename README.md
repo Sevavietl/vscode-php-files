@@ -2,6 +2,8 @@
 
 Extension that adds naive IDE-like file creation.
 
+**!IMPORTANT!** For now tested only under *nix. 
+
 ## A Story Behind
 
 I like using [Visual Studio Code](https://code.visualstudio.com/).
@@ -83,9 +85,31 @@ This extension contributes the following settings:
 ],
 ```
 
+## Known Issues
+
+When you create new files a bunch of new lines created in the end of it.
+I will investigate this. As a temporary solution you can set file of the vscode itself to remove them on save settings:
+
+```json
+
+"files.insertFinalNewline": true,
+"files.trimFinalNewlines": true,
+
+```
+
 ## TODO
 
 - Allow using of commands from the command palette.
 - Implement tests.
 - Implement `PHP File Rename`
 - Implement `PHP File Duplicate`
+
+## Acknowledgments
+
+All the hardcore PHP AST staff is done by [php_writer](https://github.com/glayzzle/php-writer), which itself uses following great libraries:
+
+- [php-parser](https://github.com/glayzzle/php-parser)
+
+- [php-unparser](https://github.com/chris-l/php-unparser)
+
+I cannot thank the creators and contributers of those packages enough!
