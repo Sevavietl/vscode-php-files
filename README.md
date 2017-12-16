@@ -36,16 +36,22 @@ For now you have the following options for creating files from Explorer context 
 or short-exit with escape to create class without extends or implements.
 4. Enter _PHP Interfaces_ names (can be separated by comma).
 
+![php_files_class_creation](images/php_files_class_creation.gif)
+
 #### New PHP Interface
 
 1. Select `New PHP Interface` from the context menu inside Explorer.
 2. Enter full _PHP Interface_ name (e.g. 'Foo\Bar\Baz') and press enter to proceed or enter escape to discard.
 3. Enter _PHP Interfaces_ names (can be separated by comma).
 
+![php_files_interface_creation](images/php_files_interface_creation.gif)
+
 #### New PHP Trait
 
 1. Select `New PHP Trait` from the context menu inside Explorer.
 2. Enter full _PHP Trait_ name (e.g. 'Foo\Bar\Baz') and press enter to proceed or enter escape to discard.
+
+![php_files_trait_creation](images/php_files_trait_creation.gif)
 
 ## Extension Settings
 

@@ -14,6 +14,6 @@ export default class ConfigsRepository {
     }
 
     public getNamespaces() {
-        return this.configs['namespaces'];
+        return this.configs['namespaces'] || {};
     }
 }
