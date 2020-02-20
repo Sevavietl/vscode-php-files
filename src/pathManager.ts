@@ -6,15 +6,19 @@ import PhpName from './entities/phpName';
 
 export default class PathManager {
     private configsRepository: ConfigsRepository;
+    private directorySeparator = '/';
 
     constructor(configsRepository: ConfigsRepository) {
         this.configsRepository = configsRepository;
+        if (workspace.rootPath.indexOf('\\') > -1) {
+            this.directorySeparator = '\\';
+        }
     }
 
     public prepareDefaultPath(target, name) {
         const phpName = new PhpName(name);
 
-        return target + '/' + phpName.getUnqualifiedName() + '.php';
+        return target + this.directorySeparator + phpName.getUnqualifiedName() + '.php';
     }
 
     public validatePath(path) {
@@ -33,12 +37,12 @@ export default class PathManager {
                 return carry;
             }
             
-            const resolvedPath = workspace.rootPath + '/' + namespaces[namespace];
+            const resolvedPath = workspace.rootPath + this.directorySeparator + namespaces[namespace];
 
             const offset = this.getOffset(resolvedPath, path);
 
             if (offset !== null) {
-                return (namespace + offset).split('/').join('\\');
+                return (namespace + offset).split(this.directorySeparator).join('\\');
             }
 
             return carry;
@@ -58,8 +62,8 @@ export default class PathManager {
             let offset = this.getOffset(ns, namespace);
 
             if (offset !== null) {
-                offset = offset.split('\\').concat([phpName.getUnqualifiedName() + '.php']).join('/');
-                carry = workspace.rootPath + '/' + namespaces[ns] + offset;
+                offset = offset.split('\\').concat([phpName.getUnqualifiedName() + '.php']).join(this.directorySeparator);
+                carry = workspace.rootPath + this.directorySeparator + namespaces[ns] + offset;
             }
             
             return carry;
